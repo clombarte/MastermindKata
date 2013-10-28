@@ -1,7 +1,10 @@
 <?php
 
+namespace MastermindKata;
+
 /**
- * Detailed class description here.
+ * Exception used when the class properties $user_code or $secret_code are empty.
  *
- * @author Carlos Lombarte <lombartec@gmail.com>
- */ 
+ * @package MastermindKata
+ */
+class EmptyCodeException extends \Exception{}

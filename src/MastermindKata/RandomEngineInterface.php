@@ -3,20 +3,17 @@
 namespace MastermindKata;
 
 /**
- * Detailed class description here.
+ * Interface for classes that generate random values.
  *
  * @author Carlos Lombarte <lombartec@gmail.com>
  */
 
-interface RandomEngine
+interface RandomEngineInterface
 {
     /**
      * Generates a random code.
      *
-     * @param integer $maximum_characters   The maximum characters that the code will be made of.
-     * @param integer $lowest_limit         The lowest possible character in the code.
-     * @param integer $highest_limit        The highest possible character in the code.
-     * @return string The generated random code.
+     * @return mixed The generated random code.
      */
-    public function getRandomCode( $maximum_characters, $lowest_limit, $highest_limit );
+    public function getRandomCode();
 }

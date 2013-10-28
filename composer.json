@@ -1,0 +1,20 @@
+{
+    "name": "lombartec/MastermindKata",
+    "description": "Mastermind kata http://indiecode.net/2012/05/06/code-kata-mastermind/ also http://www.solveet.com/exercises/Kata-CodeBreaker/14",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Carlos Lombarte",
+            "email": "lombartec@gmail.com",
+            "homepage": "https://github.com/clombarte"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "MastermindKata": "src"
+        }
+    }
+}

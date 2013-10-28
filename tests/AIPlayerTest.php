@@ -3,16 +3,16 @@
 namespace MastermindKata;
 
 /**
- * Test suite for the IAPlayer class.
+ * Test suite for the AIPlayer class.
  *
  * @author Carlos Lombarte <lombartec@gmail.com>
  */
-class IAPlayerTest extends \PHPUnit_Framework_TestCase
+class AIPlayerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * The object to test.
      *
-     * @var IAPlayer
+     * @var AIPlayer
      */
     private $obj;
 
@@ -37,7 +37,7 @@ class IAPlayerTest extends \PHPUnit_Framework_TestCase
     {
         $this->code_generator = $this->getMock( 'MastermindKata\CodeGenerator', array( 'getRandomCode' ) );
         $this->clue_generator = $this->getMock( 'MastermindKata\ClueGenerator' );
-        $this->obj = new IAPlayer( $this->code_generator, $this->clue_generator );
+        $this->obj = new AIPlayer( $this->code_generator, $this->clue_generator );
     }
 
     /**
@@ -59,7 +59,7 @@ class IAPlayerTest extends \PHPUnit_Framework_TestCase
             ->method( 'getRandomCode' )
             ->will( $this->returnValue( $code ) );
 
-        $this->obj = new IAPlayer( $this->code_generator, $this->clue_generator );
+        $this->obj = new AIPlayer( $this->code_generator, $this->clue_generator );
         $this->obj->generateRandomCode();
 
         $this->assertTrue( $this->obj->isGivenCodeCorrect( $code ), 'This method must return true when the code is correct' );
@@ -82,7 +82,7 @@ class IAPlayerTest extends \PHPUnit_Framework_TestCase
         $this->clue_generator->expects( $this->once() )
             ->method( 'getClue' );
 
-        $this->obj = new IAPlayer( $this->code_generator, $this->clue_generator );
+        $this->obj = new AIPlayer( $this->code_generator, $this->clue_generator );
         $this->obj->generateRandomCode();
         $this->obj->isGivenCodeCorrect( $code );
     }

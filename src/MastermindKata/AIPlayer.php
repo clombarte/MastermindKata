@@ -8,7 +8,7 @@ namespace MastermindKata;
  *
  * @author Carlos Lombarte <lombartec@gmail.com>
  */
-class IAPlayer
+class AIPlayer
 {
     /**
      * Class that can generate a code.
