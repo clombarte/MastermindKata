@@ -1,0 +1,4 @@
+MastermindKata
+==============
+
+Mastermind (CodeBreaker) Kata
