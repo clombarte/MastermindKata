@@ -1,6 +1,6 @@
 {
     "name": "lombartec/MastermindKata",
-    "description": "Mastermind kata http://indiecode.net/2012/05/06/code-kata-mastermind/ also http://www.solveet.com/exercises/Kata-CodeBreaker/14",
+    "description": "Mastermind kata, also known as CodeBreaker",
     "license": "MIT",
     "authors": [
         {
