@@ -10,20 +10,6 @@ namespace MastermindKata;
 class ClueGenerator implements ClueEngineInterface
 {
     /**
-     * The actual secret code.
-     *
-     * @var string
-     */
-    private $secret_code;
-
-    /**
-     * Player's given guess for the secret code.
-     *
-     * @var string
-     */
-    private $user_code;
-
-    /**
      * Character used when a character in the code is correct but it is not in a correct place.
      *
      * @var string
@@ -45,58 +31,29 @@ class ClueGenerator implements ClueEngineInterface
     const RETRY_MESSAGE = 'No matches, keep trying!';
 
     /**
-     * Saves the secret code.
+     * Generates a clue depending on the user guess.
      *
-     * @param string $secret_code The secret code to compare with player's guess.
-     */
-    public function setSecretCode( $secret_code )
-    {
-        $this->secret_code = $secret_code;
-    }
-
-    /**
-     * Saves the user guess.
+     * @param string $secret_code   The code to discover.
+     * @param string $user_code     User's secret code guess attempt.
      *
-     * @param string $user_code The user given guess.
-     */
-    public function setUserCode( $user_code )
-    {
-        $this->user_code = $user_code;
-    }
-
-    /**
-     * Returns the clue to the player.
+     * @throws DifferentCodeLengthException Thrown when the user code and the secret code are different in length.
+     * @throws EmptyCodeException Thrown when the user code or the secret code is empty.
      *
      * @return string The clue to return to the player.
      */
-    public function getClue()
+    public function getClue( $secret_code, $user_code )
     {
-        return $this->getClueForGivenCode( $this->user_code );
-    }
-
-    /**
-     * Generates a clue depending on the given code.
-     *
-     * @param string $code The code to check to create the clue.
-     *
-     * @throws DifferentCodeLengthException
-     * @throws EmptyCodeException
-     *
-     * @return string The generated clue.
-     */
-    private function getClueForGivenCode( $code )
-    {
-        if ( !$this->secret_code || !$this->user_code )
+        if ( !$secret_code || !$user_code )
         {
             throw new EmptyCodeException( 'The user guess code or the secret code is empty' );
         }
-        elseif ( strlen( $code ) != strlen( $this->secret_code ) )
+        elseif ( strlen( $user_code ) != strlen( $secret_code ) )
         {
-            throw new DifferentCodeLengthException( $code . ' is different in length with the secret code' );
+            throw new DifferentCodeLengthException( $user_code . ' is different in length with the secret code' );
         }
 
-        $secret_code    = str_split( $this->secret_code );
-        $user_code      = str_split( $code );
+        $secret_code    = str_split( $secret_code );
+        $user_code      = str_split( $user_code );
         $clue           = array();
 
         for ( $i = 0; $i < count( $user_code ); $i++ )

@@ -20,7 +20,7 @@ class AIPlayer
     /**
      * Class that can generate a clue.
      *
-     * @var ClueGeneratorInterface
+     * @var ClueEngineInterface
      */
     private $clue_generator;
 
@@ -49,24 +49,22 @@ class AIPlayer
     public function generateRandomCode()
     {
         $this->secret_code = $this->code_generator->getRandomCode();
-        $this->clue_generator->setSecretCode( $this->secret_code );
     }
 
     /**
      * Checks if a given code is correct or not, if not, gives a clue to the player.
      *
-     * @param string $code The code to check if it is correct or not.
+     * @param string $user_code The code to check if it is correct or not.
      *
-     * @return boolean
+     * @return mixed Boolean when the user guessed the correct code, string otherwise.
      */
-    public function isGivenCodeCorrect( $code )
+    public function isGivenCodeCorrect( $user_code )
     {
-        if ( $code == $this->secret_code )
+        if ( $user_code == $this->secret_code )
         {
             return true;
         }
 
-        $this->clue_generator->setUserCode( $code );
-        return $this->clue_generator->getClue( $code );
+        return $this->clue_generator->getClue( $this->secret_code, $user_code );
     }
 }

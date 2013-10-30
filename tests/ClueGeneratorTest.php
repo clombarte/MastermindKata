@@ -18,13 +18,6 @@ class ClueGeneratorTest extends \PHPUnit_Framework_TestCase
     private $obj;
 
     /**
-     * The tested object dependency to generate a clue.
-     *
-     * @var ClueEngineInterface
-     */
-    private $code_generator;
-
-    /**
      * Executes before every test case.
      */
     public function setUp()
@@ -41,33 +34,52 @@ class ClueGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that getClueForGivenCode throws exception when player's code has different length with secret code.
-     */
-    public function testThatGetClueForGivenCodeThrowsExceptionWhenPlayersCodeHasDifferentLengthOfSecretCode()
-    {
-        $this->obj->setSecretCode( 'AAAA' );
-        $this->obj->setUserCode( 'BBBBBB' );
-        $this->setExpectedException( 'MastermindKata\DifferentCodeLengthException' );
-        $this->obj->getClue();
-    }
-
-    /**
-     * Tests that getClueForGivenCode throws EmptyCodeException when player's code or secret code is empty.
-     */
-    public function testThatGetClueForGivenCodeThrowsEmptyCodeExceptionWhenPlayersCodeOrSecretCodeIsEmpty()
-    {
-        $this->obj->setSecretCode( '' );
-        $this->obj->setUserCode( 'BBBBBB' );
-        $this->setExpectedException( 'MastermindKata\EmptyCodeException' );
-        $this->obj->getClue();
-    }
-
-    /**
-     * Data provider for getClueForGivenCode method.
+     * Data provider used to test the getClue method Exceptions.
      *
      * @return array
      */
-    public function getClueForGivenCodeProvider()
+    public function getClueExceptionsProvider()
+    {
+        return array(
+            'The codes have different length' => array(
+                'secret_code'           => 'AAAA',
+                'user_code'             => 'BBBBBBBB',
+                'expected_exception'    => 'MastermindKata\DifferentCodeLengthException',
+            ),
+            'Secret code is empty' => array(
+                'secret_code'           => '',
+                'user_code'             => 'FFFF',
+                'expected_exception'    => 'MastermindKata\EmptyCodeException',
+            ),
+            'User code is empty' => array(
+                'secret_code'           => 'DDDD',
+                'user_code'             => '',
+                'expected_exception'    => 'MastermindKata\EmptyCodeException',
+            ),
+        );
+    }
+
+    /**
+     * Tests that getClue throws the appropriate exceptions when certain conditions are met.
+     *
+     * @dataProvider getClueExceptionsProvider
+     *
+     * @param string $secret_code           The secret code that has to be broken.
+     * @param string $user_code             The user guess attempt to break the secret code.
+     * @param string $expected_exception    The expected exception to be thrown, including the namespace.
+     */
+    public function testThatGetClueThrowsTheAppropriateExceptions( $secret_code, $user_code, $expected_exception )
+    {
+        $this->setExpectedException( $expected_exception );
+        $this->obj->getClue( $secret_code, $user_code );
+    }
+
+    /**
+     * Data provider for getClue method.
+     *
+     * @return array
+     */
+    public function getClueProvider()
     {
         return array(
             'All characters correct but wrong position' => array(
@@ -104,16 +116,13 @@ class ClueGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that getClueForGivenCode handles correctly all possible cases.
+     * Tests that getClue handles correctly all the possible clue cases.
      *
-     * @dataProvider getClueForGivenCodeProvider
+     * @dataProvider getClueProvider
      */
     public function testGetClueForGivenCode( $guess, $secret_code, $expected, $message )
     {
-        $this->obj->setSecretCode( $secret_code );
-        $this->obj->setUserCode( $guess );
-
-        $this->assertEquals( $expected, $this->obj->getClue( $guess ), $message );
+        $this->assertEquals( $expected, $this->obj->getClue( $secret_code, $guess ), $message );
     }
 }
  

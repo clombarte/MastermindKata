@@ -76,10 +76,6 @@ class AIPlayerTest extends \PHPUnit_Framework_TestCase
             ->will( $this->returnValue( 'FFFF' ) );
 
         $this->clue_generator->expects( $this->once() )
-            ->method( 'setSecretCode' );
-        $this->clue_generator->expects( $this->once() )
-            ->method( 'setUserCode' );
-        $this->clue_generator->expects( $this->once() )
             ->method( 'getClue' );
 
         $this->obj = new AIPlayer( $this->code_generator, $this->clue_generator );
