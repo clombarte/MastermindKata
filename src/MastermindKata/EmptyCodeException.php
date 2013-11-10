@@ -3,7 +3,7 @@
 namespace MastermindKata;
 
 /**
- * Exception used when the class properties $user_code or $secret_code are empty.
+ * Exception used when the stored user code or secret code are empty.
  *
  * @package MastermindKata
  */
